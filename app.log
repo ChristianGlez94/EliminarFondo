@@ -1,0 +1,29 @@
+2024-11-24 19:51:52,435 - INFO - La aplicación se está ejecutando en http://localhost:63369
+2024-11-24 19:51:52,466 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:63369
+ * Running on http://192.168.100.17:63369
+2024-11-24 19:51:52,466 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-24 19:52:06,841 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:06] "GET / HTTP/1.1" 200 -
+2024-11-24 19:52:06,932 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:06] "GET /static/styles.css HTTP/1.1" 200 -
+2024-11-24 19:52:07,079 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:07] "GET /static/demo-preview.png HTTP/1.1" 200 -
+2024-11-24 19:52:07,189 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:07] "GET /static/before.png HTTP/1.1" 200 -
+2024-11-24 19:52:07,237 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:07] "GET /static/after.png HTTP/1.1" 200 -
+2024-11-24 19:52:07,915 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:07] "GET /static/favicon.ico HTTP/1.1" 200 -
+2024-11-24 19:52:08,152 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:08] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2024-11-24 19:52:24,722 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:24] "POST /process_image HTTP/1.1" 200 -
+2024-11-24 19:52:25,049 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:25] "GET /download/C:/Users/chris/AppData/Local/Temp/output_no_background.png HTTP/1.1" 200 -
+2024-11-24 19:52:27,331 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:27] "[36mGET /download/C:/Users/chris/AppData/Local/Temp/output_no_background.png HTTP/1.1[0m" 304 -
+2024-11-24 19:52:42,305 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:42] "POST /add_background HTTP/1.1" 200 -
+2024-11-24 19:52:42,614 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:42] "GET /download/C:/Users/chris/AppData/Local/Temp/output_with_background.png HTTP/1.1" 200 -
+2024-11-24 19:52:48,333 - INFO - 127.0.0.1 - - [24/Nov/2024 19:52:48] "[36mGET /download/C:/Users/chris/AppData/Local/Temp/output_with_background.png HTTP/1.1[0m" 304 -
+2024-11-24 19:53:00,395 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:00] "GET /about HTTP/1.1" 200 -
+2024-11-24 19:53:00,697 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:00] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2024-11-24 19:53:01,028 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-24 19:53:01,636 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:01] "GET /contact HTTP/1.1" 200 -
+2024-11-24 19:53:01,947 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:01] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2024-11-24 19:53:02,847 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:02] "GET / HTTP/1.1" 200 -
+2024-11-24 19:53:02,908 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:02] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2024-11-24 19:53:03,116 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:03] "[36mGET /static/demo-preview.png HTTP/1.1[0m" 304 -
+2024-11-24 19:53:03,197 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:03] "[36mGET /static/before.png HTTP/1.1[0m" 304 -
+2024-11-24 19:53:03,198 - INFO - 127.0.0.1 - - [24/Nov/2024 19:53:03] "[36mGET /static/after.png HTTP/1.1[0m" 304 -

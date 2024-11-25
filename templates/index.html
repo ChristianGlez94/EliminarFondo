@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Fotos Inteligente</title>
+    <link rel="stylesheet" href="/static/styles.css">
+	
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+	
+	
+	<!-- Metadatos básicos -->
+<meta name="description" content="Editor de Fotos Inteligente: elimina fondos, agrega fondos personalizados y edita imágenes de forma rápida y sencilla.">
+<meta name="keywords" content="editor de fotos, eliminar fondo, agregar fondo, edición de imágenes, herramienta online">
+<meta name="author" content="Christian Glez García">
+
+<!-- Metadatos para Open Graph (Redes Sociales) -->
+<meta property="og:title" content="Editor de Fotos Inteligente">
+<meta property="og:description" content="Edita imágenes de forma rápida: elimina fondos y personaliza tus fotos con fondos nuevos.">
+<meta property="og:image" content="/static/preview-image.png">
+<meta property="og:url" content="https://www.eliminarelfondo.com">
+<meta property="og:type" content="website">
+
+<!-- Metadatos para móviles -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+<!-- Menú de Navegación -->
+<nav class="navbar">
+    <ul class="navbar-menu">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/about">Acerca de</a></li>
+        <li><a href="/contact">Contacto</a></li>
+    </ul>
+</nav>
+
+<!-- Contenido Principal -->
+<main class="container">
+    <section class="card intro-card">
+        <div class="intro-content">
+            <h1 class="intro-title">Editor de Fotos Inteligente</h1>
+            <p class="intro-description">
+                Sube tu imagen, elimina el fondo y agrega fondos personalizados en pocos pasos. 
+                Una herramienta práctica y fácil de usar para todos.
+            </p>
+        </div>
+        <div class="intro-image">
+            <img src="/static/demo-preview.png" alt="Vista previa de la herramienta" class="intro-preview">
+        </div>
+    </section>
+</main>
+
+    <!-- Paso 1: Eliminar Fondo -->
+    <section class="card">
+        <h2>Paso 1: Subir Imagen y Eliminar Fondo</h2>
+        <div class="horizontal-layout">
+            <div class="controls">
+                <label class="file-input">
+                    <input type="file" id="mainImage" accept="image/*">
+                    <span>Seleccionar Imagen</span>
+                </label>
+                <button id="processImageButton" class="btn">Eliminar Fondo</button>
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <progress id="progressBar" value="0" max="100"></progress>
+                    <p id="progressMessage">Procesando...</p>
+                </div>
+            </div>
+            <div class="preview">
+                <h3>Vista Previa / Resultado</h3>
+                <div class="preview-container">
+                    <img id="imagePreview" src="{{ default_original }}" alt="Imagen original o procesada" class="thumbnail">
+                    <a id="downloadProcessedLink" href="{{ default_processed }}" class="btn" style="display: none;">Descargar Imagen Sin Fondo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paso 2: Agregar Fondo -->
+    <section class="card">
+        <h2>Paso 2: Agregar Fondo Nuevo</h2>
+        <div class="horizontal-layout">
+            <div class="controls">
+                <label class="file-input">
+                    <input type="file" id="backgroundImage" accept="image/*">
+                    <span>Seleccionar Fondo</span>
+                </label>
+                <img id="backgroundThumbnail" alt="Miniatura del fondo seleccionado" class="mini-thumbnail" style="display: none;">
+                <button id="addBackgroundButton" class="btn">Agregar Fondo Nuevo</button>
+                <div class="progress-container" id="backgroundProgressContainer" style="display: none;">
+                    <progress id="backgroundProgressBar" value="0" max="100"></progress>
+                    <p id="backgroundProgressMessage">Procesando...</p>
+                </div>
+            </div>
+            <div class="preview">
+                <h3>Resultado Final</h3>
+                <div class="preview-container">
+                    <img id="finalImagePreview" src="{{ default_processed }}" alt="Imagen con fondo nuevo" class="thumbnail">
+                    <a id="downloadFinalLink" href="#" class="btn" style="display: none;">Descargar Imagen Final</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>© 2024 Desarrollado por <a href="https://www.christiandev94.com" target="_blank" style="color: #ADD8E6;">Christian Glez García</a>. Todos los derechos reservados.</p>
+    <p><a href="/privacidad">Política de Privacidad</a> | <a href="/aviso_legal">Aviso Legal</a></p>
+</footer>
+
+<script>
+    const mainImageInput = document.getElementById('mainImage');
+    const backgroundImageInput = document.getElementById('backgroundImage');
+    const processImageButton = document.getElementById('processImageButton');
+    const addBackgroundButton = document.getElementById('addBackgroundButton');
+    const imagePreview = document.getElementById('imagePreview');
+    const backgroundThumbnail = document.getElementById('backgroundThumbnail');
+    const downloadProcessedLink = document.getElementById('downloadProcessedLink');
+    const downloadFinalLink = document.getElementById('downloadFinalLink');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressMessage = document.getElementById('progressMessage');
+    const backgroundProgressContainer = document.getElementById('backgroundProgressContainer');
+    const backgroundProgressBar = document.getElementById('backgroundProgressBar');
+    const backgroundProgressMessage = document.getElementById('backgroundProgressMessage');
+    const finalImagePreview = document.getElementById('finalImagePreview');
+
+    // Vista previa de la imagen principal
+    mainImageInput.addEventListener('change', () => {
+        const file = mainImageInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                downloadProcessedLink.style.display = 'none'; // Oculta el botón de descarga
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Vista previa del fondo seleccionado
+    backgroundImageInput.addEventListener('change', () => {
+        const file = backgroundImageInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                backgroundThumbnail.src = e.target.result;
+                backgroundThumbnail.style.display = 'block'; // Muestra la miniatura
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Procesar imagen para eliminar fondo
+    processImageButton.addEventListener('click', async () => {
+        const formData = new FormData();
+        formData.append('image', mainImageInput.files[0]);
+
+        progressContainer.style.display = 'block';
+        progressMessage.textContent = "Eliminando fondo...";
+        progressBar.value = 20;
+
+        const response = await fetch('/process_image', { method: 'POST', body: formData });
+        const data = await response.json();
+
+        if (response.ok) {
+            progressBar.value = 100;
+            progressMessage.textContent = "Fondo eliminado con éxito.";
+            imagePreview.src = `/download/${data.filename}`;
+            downloadProcessedLink.href = `/download/${data.filename}`;
+            downloadProcessedLink.style.display = 'inline'; // Muestra el botón de descarga
+            setTimeout(() => {
+                progressContainer.style.display = 'none';
+            }, 2000);
+        } else {
+            alert(data.error);
+            progressContainer.style.display = 'none';
+        }
+    });
+
+    // Agregar fondo nuevo
+    addBackgroundButton.addEventListener('click', async () => {
+        const formData = new FormData();
+        formData.append('image', mainImageInput.files[0]);
+        formData.append('background', backgroundImageInput.files[0]);
+
+        backgroundProgressContainer.style.display = 'block';
+        backgroundProgressMessage.textContent = "Agregando fondo nuevo...";
+        backgroundProgressBar.value = 20;
+
+        const response = await fetch('/add_background', { method: 'POST', body: formData });
+        const data = await response.json();
+
+        if (response.ok) {
+            backgroundProgressBar.value = 100;
+            backgroundProgressMessage.textContent = "Fondo agregado con éxito.";
+            finalImagePreview.src = `/download/${data.filename}`;
+            downloadFinalLink.href = `/download/${data.filename}`;
+            downloadFinalLink.style.display = 'inline'; // Muestra el botón de descarga
+            setTimeout(() => {
+                backgroundProgressContainer.style.display = 'none';
+            }, 2000);
+        } else {
+            alert(data.error);
+            backgroundProgressContainer.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
